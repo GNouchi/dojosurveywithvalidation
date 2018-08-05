@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<htmlcopy>
+    <head>
+       <title>Form Test Index</title>
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+       <style media="screen">
+       .container{
+           margin-top: 50px;
+           background: lightgrey;
+           padding: 50px;
+           padding-top: 25px;
+           min-height: 450px;
+       }
+       </style>
+       <script type="text/javascript">
+       $(document).ready(function(){
+          $('select').formSelect();
+        });
+       </script>
+    </head>
+    <body>
+        <div class="container">
+            <h4>Whas yo name?</h1>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <li>{{message}}</li>
+                      {% endfor %}
+                {% endif %}
+            {% endwith %}
+           <form action ='users' method='POST' class="col s12">
+               <div class="row">
+                 <div class="input-field col s12">
+                       <label for="Name" >First Name</label>
+                       <input id= "Name" type="text"  name ="name" value ={{session['name']}}>
+                 </div>
+
+                <div class=".input-field col s12">
+
+                    <label>Dojo Location</label>
+                    <select name='loc' class="browser-default">
+                        <option disabled selected>Choose your option</option>
+                        <option {%if session.loc == "sanjose"  %} selected {{session['loc']}} {%endif%}  
+                            value="sanjose">San Jose </option>                       
+                        <option {%if session.loc == "seattle"  %} selected {{session['loc']}} {%endif%}  
+                            value="seattle">Seattle</option>      
+                        <option {%if session.loc == "mars"  %} selected {{session['loc']}} {%endif%}  
+                            value="mars">Mars</option>      
+                    </select>
+
+                    <label>Favorite Language</label>
+                     <select name='lang' class="browser-default">
+                        <option disabled selected>Choose your option</option>
+                        <option {%if session.lang == "python"  %} selected {{session['lang']}} {%endif%}  
+                            value="python">Python </option>
+                        <option {%if session.lang == "javascript"  %} selected {{session['lang']}} {%endif%}  
+                            value="javascript">Javascript</option>
+                        <option {%if session.lang == "english"  %} selected {{session['lang']}} {%endif%}  
+                            value="english">English</option>
+                     </select>
+
+                </div>
+
+                 <div class="col s12">
+                    Message: <textarea name='message'>{{session['message']}}</textarea>
+                    <button class="btn waves-effect waves-light" type="submit" >Submit
+                     </button>
+                 </div>
+
+            </form>
+        </div>
+    </body>
+</html>
